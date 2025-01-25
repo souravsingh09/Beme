@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>BeMe Simulation</title>
+
+    <!-- Favicons -->
+    <link href="static/img/face-id.png" rel="icon" />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Georama:wght@200;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Vendor CSS Files -->
+    <link
+      href="static/vendor/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script
+    defer
+    src="{{ url_for('static', filename='js/face-api.min.js') }}"
+  ></script>
+
+
+    <link
+      href="static/vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <!-- Template Main CSS File -->
+    <link href="static/css/styleIndex.css" rel="stylesheet" />
+    <style>
+      /* Custom style to set icon size */
+      .alert i[class^="bi-"] {
+        font-size: 1.5rem;
+        line-height: 1;
+      }
+   
+      .credits .name {
+        float: left;
+        color: #fdf5f5;
+      } 
+    </style>
+
+  </head>
+
+  <body>
+    <header id="header">
+      <div class="container">
+        <div class="col-md-6" style="text-align: justify; ">
+        <h1>BeMe Simulation</h1>
+		      <span>An AI Based Communication Coach</span>
+        <p>
+          Welcome to our <span>BeMe Simulation Application</span>. We are
+          excited to offer you a cutting-edge solution for improving your
+          communication skills. If you are looking to enhance your personal
+          relationships, our <span>AI-powered platform</span> is designed to help you achieve
+          your goals.
+        </p>
+        <p>
+          Our platform leverages the latest advancements in AI technology to
+          provide personalized feedback and guidance on your
+          <span> interpersonal communication skills</span>. Whether you want to
+          improve your public speaking or become a better listener, our
+          BeMe Simulation application has you covered. You can practice
+          your skills in real-time, with instant feedback and suggestions for
+          improvement.
+        </p>
+        <p>
+          Start your journey towards better communication today !
+        </p>
+        <br />
+        <br />
+        <form method="POST" action="{{ url_for('home_page') }}">
+          <button
+            type="submit"
+            id="startButton"
+            class="btn btn-primary"
+            disabled
+          >
+            Start Now &nbsp;
+            <i class="bi bi-play-circle"></i>
+          </button>
+          <p style="margin-top: 10px; font-size: 12px">
+            <input
+              type="checkbox"
+              id="policy_check"
+              name="policyAccepted"
+              value="accepted"
+            />&nbsp; I have read and accept the
+            <a href="#" id="policy">Privacy Policy </a>
+          </p>
+          
+        </form>
+        <br />
+      </div>
+    </div>
+
+      <!-- The Modal -->
+      <div id="myModal" class="modal fade in">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p>
+            I hereby grant Tech Mahindra Limited permission to obtain, possess, process, store, handle, 
+            my personal and/or sensitive personal data (including but not limited to my face) in connection 
+            with the use of the BeMe Simulation Application (collectively, " self-improvement tool").
+          </p>
+          <p>
+            I give this consent voluntarily and without any coercion or undue influence whatsoever. 
+            The company has further informed me that my personal data and/or sensitive personal data
+             shall not be stored or used for any purpose except as specified below.
+          </p>
+          <p>
+            I understand:
+          </p>
+          <ul>
+            <li>That the BeMe Simulation is a self-improvement tool and that the data in the generated report 
+              will not be stored on any system.</li>
+            <li>
+              The personal data/sensitive personal data shall be 
+              used to generate reports containing video and audio analysis for self-improvement.
+            </li>
+            <li>Access to BeMe Simulation will not be possible if I choose not to give 
+              my consent concerning use of my personal and/or sensitive personal data.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="credits" >
+        <div class="col-md-12">
+          <p>Copyright © Tech Mahindra Limited. All Rights Reserved <span class="name">A CIO  -  HR LABS Initiative</span></p>
+          
+          
+        </div>
+        
+      </div>
+    <!-- </header> -->
+
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='js/active_chart.js')}}"
+    ></script>
+
+    <!-- <script defer>
+      // Preload face-api models
+      async function preloadModels() {
+          await Promise.all([
+              faceapi.nets.ssdMobilenetv1.loadFromUri('./static/models'),
+              faceapi.nets.faceLandmark68Net.loadFromUri('./static/models'),
+              faceapi.nets.faceRecognitionNet.loadFromUri('./static/models'),
+              faceapi.nets.faceExpressionNet.loadFromUri('./static/models'),
+              faceapi.nets.ageGenderNet.loadFromUri('./static/models')
+          ]).then(() => {
+              console.log('Models preloaded successfully.');
+              // Optionally, navigate to the next page or enable navigation
+              // window.location.href = '/nextPage.html';
+          });
+      }
+      window.addEventListener('load', preloadModels);
+</script> -->
+
+  </body>
+</html>

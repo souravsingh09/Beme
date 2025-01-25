@@ -1,0 +1,37 @@
+.recommendations ul {
+  padding-left: 5rem;
+}
+.recommendations li {
+  list-style: disc;
+}
+
+.recommendations p {
+  color: black;
+  padding-left: 2rem;
+  font-weight: 400;
+}
+.recommendations b {
+  font-weight: 600;
+}
+
+.recommendations h5 {
+  font-weight: 900;
+}
+
+.plr_30 {
+  padding: 39px 30px !important;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  margin-left: 2rem;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 2px;
+}

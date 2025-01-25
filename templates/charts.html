@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>BeMe Simulation</title>
+    <!-- Favicons -->
+    <link href="static/img/face-id.png" rel="icon" />
+    <link rel="stylesheet" href="static/css/bootstrap1.min.css" />
+    <link rel="stylesheet" href="static/css/styleCharts.css" />
+
+    <link
+      href="static/vendor/bootstrap-icons/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <style>
+      span .highlighted {
+        background-color: greenyellow;
+        display: inline;
+        font-size: 14px;
+        font-weight: bold;
+        color: black;
+      }
+      .transcript {
+        overflow: hidden;
+/*         white-space: nowrap; */
+        color: black;
+      }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+
+  <body class="crm_body_bg">
+    <section class="main_content dashboard_part">
+      <div class="container-fluid g-0">
+        <div class="row">
+          <div class="col-lg-12 p-0">
+            <div
+              class="header_iner d-flex justify-content-between align-items-center"
+            >
+              <div class="page_title_left">
+                <h1>BeMe Simulation Coach</h1>
+              </div>
+
+              <div
+                class="header_right d-flex justify-content-between align-items-center"
+              >
+                <div>
+                  <a href="{{ url_for('home_page') }}" class="white_btn3" id="rehearse" method
+                    ><i
+                      class="bi bi-camera-fill button-icon"
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="top"
+                    ></i
+                    >Rehearse Again</a
+                  >
+                </div>
+
+                <a href="#" id="cmd" class="white_btn3" onclick="downloadPDF()"
+                  ><i class="bi bi-arrow-down-circle button-icon"></i> Download
+                  Report</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="feedback">
+        <a href="{{ url_for('new_page') }}" target="_blank">Learn more</a>
+      </div>
+
+      <div id="myDiv" class="main_content_iner">
+        <div class="container-fluid plr_30 body_white_bg pt_30">
+          <div class="row justify-content-center">
+            <div class="col-lg-12" id="placecard">
+              <div class="single_element">
+                <div class="quick_activity">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="quick_activity_wrap">
+                        <div class="single_quick_activity">
+                          <h4>Summary</h4>
+                          <p>Good job rehearsing ! Keep up the hard work.</p>
+                          <h3>
+                            <span class="counter">{{ video_length }}</span>
+                            minutes
+                          </h3>
+                          <p>Total Time Spent.</p>
+                        </div>
+
+                        <div class="single_quick_activity">
+                          <h4>Total Words</h4>
+                          <p>&nbsp</p>
+                          <h3>
+                            <span class="counter">{{ total_word_len }}</span>
+                            words
+                          </h3>
+                          <p>Total words used in your entire presentation.</p>
+                        </div>
+
+                        <div class="single_quick_activity">
+                          <h4>Unique Words</h4>
+                          <p>&nbsp</p>
+                          <h3>
+                            <span class="counter">{{ unique_word_len }}</span>
+                            words
+                          </h3>
+                          <p>
+                            Total unique words used in your entire presentation.
+                          </p>
+                        </div>
+
+                        <div class="single_quick_activity">
+                          <h4>Pace</h4>
+                          <p>&nbsp</p>
+                          <h3>
+                            <span class="counter">{{ speaking_rate }}</span>
+                            words/min
+                          </h3>
+                          <p>
+                            Pace between 120 - 150 words per minute is the
+                            average rate of natural speech and is easy for most
+                            people to follow.
+                          </p>
+                        </div>
+                      </div>
+
+                      <div class="quick_activity_wrap">
+                        <div class="single_quick_activity">
+                          <h4>Fillers</h4>
+                          <p>&nbsp</p>
+                          <h3>
+                            <span class="counter">{{ filler_words }}</span>
+                            words
+                          </h3>
+                          <p>
+                            To sound more polished and confident, try to avoid
+                            using filler words.Pause or take a breath to relax.
+                          </p>
+                        </div>
+
+                        <div class="single_quick_activity">
+                          <h4>Text Sentiment</h4>
+                          <p>&nbsp</p>
+                          <h3><span>{{ text_sentiment_data }}</span></h3>
+                          <p>The overall text sentiment of your transcript.</p>
+                        </div>
+
+                        <div class="single_quick_activity">
+                          <h4>Frequently Uttered Words</h4>
+                          <p>&nbsp</p>
+                          <div>
+                            <span style="padding:4px; color:#fff">{{ repetitive_word.0.0 }}</span>
+                            <span style="padding:4px; color:#fff">{{ repetitive_word.1.0 }}</span>
+                            <span style="padding:4px; color:#fff">{{ repetitive_word.2.0 }}</span>
+                            <span style="padding:4px; color:#fff">{{ repetitive_word.3.0 }}</span>
+                            <span style="padding:4px; color:#fff">{{ repetitive_word.4.0 }}</span>
+                            <span style="padding:4px; color:#fff">{{ repetitive_word.5.0 }}</span>
+                            <span style="padding:4px; color:#fff">{{ repetitive_word.6.0 }}</span>
+                            <span style="padding:4px; color:#fff">{{ repetitive_word.7.0 }}</span>
+                            <span style="padding:4px; color:#fff">{{ repetitive_word.8.0 }}</span>
+                            <span style="padding:4px; color:#fff">{{ repetitive_word.9.0 }}</span>
+
+                            <!-- <table cellpadding="5" cellspacing="5">
+                              <tr>
+                                <th><p>{{ repetitive_word.0.0 }}</p></th>
+                                <td><p></p></td>
+                                <td><p>{{ repetitive_word.1.0 }}</p></td>
+                                <td><p></p></td>
+                                <td><p>{{ repetitive_word.2.0 }}</p></td>
+                                <td><p></p></td>
+                                <td><p>{{ repetitive_word.3.0 }}</p></td>
+                              </tr>
+  
+                              <tr>
+                                <td><p>{{ repetitive_word.4.0 }}</p></td>
+                                <td><p></p></td>
+                                <td><p>{{ repetitive_word.5.0 }}</p></td>
+                                <td><p></p></td>
+                                <td><p>{{ repetitive_word.6.0 }}</p></td>
+                                <td><p></p></td>
+                                <td><p>{{ repetitive_word.7.0 }}</p></td>
+                              </tr>
+  
+                              <tr>
+                                <td><p>{{ repetitive_word.8.0 }}</p></td>
+                                <td><p></p></td>
+                                <td><p>{{ repetitive_word.9.0 }}</p></td>
+                              </tr>
+                            </table> -->
+                          </div>
+                          
+                        </div>
+
+                        <div class="single_quick_activity">
+                          <h4>Inclusive Word</h4>
+                          <p>&nbsp</p>
+                          <h3>
+                            <span class="counter"
+                              >{{ inclusive_word_count }}</span
+                            >
+                          </h3>
+                          <p>
+                            Inclusive language was used throughout the entire
+                            presentation to ensure that everyone felt
+                            acknowledged and included..
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-12 col-xl-10" id="transcriptsec">
+              <div class="white_box mb_30 min_430">
+                <div class="box_header box_header_block">
+                  <div class="main-title">
+                    <h3 class="mb-0">Transcript
+					                      <i
+                        class="bi bi-info-circle-fill help-info"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                        title="When words are highlighted in the transcript, it indicates they have been flagged for inclusivity. 
+                        By hovering over these highlighted words, you will be provided with suggested alternatives that could be used instead."
+                      ></i></h3>
+                    <span>
+                      <p class="transcript">{{ transcript_data | safe}}</p>
+                      {% if transcript_data | length > 1000 %}
+                      <p class="read-more" style="display: none">
+                        {{ transcript_data[:] }}
+                      </p>
+                      <a href="#" class="read-more-link" style="float: right"
+                        >Read More</a
+                      >
+                      {% endif %}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- <div class="col-lg-12 col-xl-7">
+              <div class="white_box mb_30 min_430">
+                <div class="box_header box_header_block">
+                  <div class="main-title">
+                    <h3 class="mb-0">
+                      Pitch
+                      <i
+                        class="bi bi-info-circle-fill help-info"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                        title="If you suddenly change the pitch, the graph will show a sharp peak or dip. 
+                        By analysing this graph, you gain insights into the nuances of your voice, such as how you use vibrato, 
+                        how you transition between notes, and how you hit high or low notes."
+                      ></i>
+                    </h3>
+                  </div>
+                </div>
+                <img
+                  src=""
+                  class="img-fluid"
+                  alt="Responsive image"
+                  id="pitch_image_path"
+                />
+              </div>
+            </div> -->
+
+            <div class="col-lg-6 col-xl-3 col-md-6" >
+              <div class="white_box mb_30 min_400">
+                <div class="box_header">
+                  <div class="main-title">
+                    <h3 class="mb-0">
+                      Overall Video Analysis
+                      <i
+                        class="bi bi-info-circle-fill help-info"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                        title="Positive expressions can include emotions such as happiness, joy, excitement, surprise and satisfaction.   
+                        Negative expressions, on the other hand, can include emotions such as sadness, anger, fear, and disgust. Neutral expressions are expressions that do not convey 
+                        a specific emotion and are often characterized by a relaxed face with no particular expression. 
+                        By analyzing the facial expressions of individuals in video recordings, we can gain valuable insights into their emotions, behaviors, and attitudes."
+                      ></i>
+                    </h3>
+                  </div>
+                </div>
+                <canvas height="280px" style="margin: 0 auto;" id="doughutChart"></canvas>
+              </div>
+            </div>
+
+            <div class="col-lg-12 col-xl-10">
+              <div class="white_box mb_30 min_430">
+                <div class="box_header box_header_block">
+                  <div class="main-title">
+                    <h3 class="mb-0">
+                      Amplitude over Time
+                      <i
+                        class="bi bi-info-circle-fill help-info"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                        title='An "Amplitude over Time" graph is a way of visualizing how the volume, or loudness, of a sound changes over a period of time 
+                        or "An Amplitude over Time" graph visualizes volume changes over time.'
+                      ></i>
+                    </h3>
+                  </div>
+                </div>
+                <img
+                  src="{{ wave_image_path }}"
+                  class="img-fluid"
+                  alt="Responsive image"
+                  id="wave_image_path"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer_part">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-12 col-xl-9">
+              <div class="footer_iner text-center">
+                <p>Copyright © Tech Mahindra Limited. All Rights Reserved</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="static/js/jquery-3.7.min.js"></script>
+    <script src="static/js/bootstrap1.min.js"></script>
+    <script src="static/js/html2canvas.min.js"></script>
+    <script src="static/js/vendors/apex_chart/apexcharts.js"></script>
+    <script src="static/js/vendors/apex_chart/bar_active_1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='js/active_chart.js')}}"
+    ></script>
+
+    <script type="application/javascript">
+
+        // Initalize variable for overall video analysis
+        const labels =  {{ video_data.0|tojson }};
+        const data =  {{ video_data.1|tojson }};
+        const color =  {{ video_data.2|tojson }};
+        const title =  {{ video_data.3|tojson }};
+        chart_doughnut('doughutChart', labels, data,color,title);
+
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('.help-info'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+          return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+
+        $(document).ready(function() {
+        $(".read-more-link").on("click", function(e) {
+          e.preventDefault();
+          $(".transcript").hide();
+          $(".read-more").show();
+          $(this).hide();
+        });
+      });
+
+        // Paths of the files to be deleted
+        filePaths = [  {{ wave_image_path|tojson  }} ]
+
+      function deleteFiles() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', "{{ url_for('delete_file') }}", true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log('hshshshshhs');
+            const response = JSON.parse(xhr.responseText);
+            if (response.redirectTo) {
+              window.location.href = response.redirectTo;
+            }
+          }
+        };
+        xhr.send(JSON.stringify({'file_paths': filePaths }));
+      }
+
+      window.addEventListener('beforeunload', function(event) {
+        deleteFiles();
+      });
+
+      document.getElementById('rehearse').addEventListener('click', function(event) {
+      deleteFiles();
+      });
+    </script>
+  </body>
+</html>
